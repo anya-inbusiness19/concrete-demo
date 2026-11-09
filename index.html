@@ -222,59 +222,23 @@ footer{border-top:1px dashed var(--cork);padding-block:41px 31px;color:var(--sla
 .reveal{transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .7s}
 .reveal.pre{transform:translateY(18px);opacity:.35}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal.pre{transform:none;opacity:1}.hero-media{display:none}}
-/* ---------- Opening intro (video with built-in animation fallback) ---------- */
-#intro{position:fixed;inset:0;z-index:200;background:#100904;color:#ffedd7;overflow:hidden;display:grid;place-items:center}
-#intro video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s}
-#intro.has-video video{opacity:1}
-#intro .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,9,4,.35),rgba(16,9,4,.8))}
-#intro .bp{position:absolute;inset:0;display:grid;place-items:center}
-#intro.has-video .bp{display:none}
-#intro .bp::before{content:"";position:absolute;inset:0;opacity:0;animation:iFade .8s .1s forwards;
-  background-image:linear-gradient(rgba(255,237,215,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,237,215,.07) 1px,transparent 1px);background-size:44px 44px}
-#intro .bp svg{position:relative;width:min(520px,82vw);height:auto;margin-top:-14vh;overflow:visible}
-#intro .ln{fill:none;stroke:#ffedd7;stroke-width:1.6;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:iDraw 1.4s cubic-bezier(.6,0,.3,1) forwards}
-#intro .slab{fill:#6c5f51;transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);animation:iPour 1s 1.6s cubic-bezier(.7,0,.2,1) forwards}
-#intro .dim{font:11px ui-monospace,Menlo,Consolas,monospace;fill:#ffedd7;opacity:0;letter-spacing:.06em;animation:iFade .4s 1.2s forwards}
-#intro .copy{position:relative;text-align:center;padding:0 max(16px,env(safe-area-inset-left,0px));margin-top:34vh}
-#intro.has-video .copy{margin-top:0}
-#intro .name{font-family:var(--sans);font-weight:500;text-transform:uppercase;font-size:clamp(48px,10vw,140px);line-height:.88;opacity:0;transform:translateY(16px);animation:iRise .9s var(--nd,2.5s) cubic-bezier(.2,.8,.2,1) forwards}
-#intro .name em{color:#ffedd7;opacity:.55}
-#intro .sub{margin-top:18px;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#c9c6bf;opacity:0;animation:iFade .6s var(--sd,3.1s) forwards}
-#intro .bar{position:absolute;left:0;bottom:0;height:2px;width:0;background:#dc5000}
-#intro .skip{text-transform:uppercase;font-weight:500;font-size:12px!important;position:absolute;top:calc(18px + env(safe-area-inset-top,0px));right:calc(18px + env(safe-area-inset-right,0px));height:36px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.4);background:rgba(16,17,19,.35);color:#f3f1ec;font:inherit;font-size:14px;cursor:pointer;backdrop-filter:blur(6px)}
-#intro.out{animation:iOut .9s cubic-bezier(.8,0,.2,1) forwards}
-#intro.has-video{--nd:.4s;--sd:1s}
-@keyframes iDraw{to{stroke-dashoffset:0}}
-@keyframes iPour{to{transform:scaleY(1)}}
-@keyframes iFade{to{opacity:1}}
-@keyframes iRise{to{opacity:1;transform:none}}
-@keyframes iOut{to{transform:translateY(-100%)}}
-.replay{background:none;border:1px solid var(--cream);color:var(--cream);border-radius:22.5px;min-height:32px;padding:6px 14px;font:inherit;font-size:11px;font-weight:500;text-transform:uppercase;cursor:pointer;justify-self:start}
-.replay:hover{color:var(--ink)}
-@media (prefers-reduced-motion:reduce){#intro{display:none!important}}
+/* Call now button */
+.btn-call{background:#dc5000;color:#fff;border-color:#dc5000}
+.btn-call:hover{background:#b84300;border-color:#b84300}
+.btn-call svg{width:15px;height:15px;flex:none}
+.call-bar{display:none}
+.nav-cta .btn-call .call-short{display:none}
+@media (max-width:860px){
+  .nav-cta .btn-call .call-num,.nav-cta .btn-fill{display:none}
+  .nav-cta .btn-call .call-short{display:inline}
+  .logo{font-size:13px}
+  .call-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;gap:8px;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:rgba(16,9,4,.92);backdrop-filter:blur(8px);border-top:1px dashed var(--cork)}
+  .call-bar .btn{flex:1}
+  body{padding-bottom:72px}
+}
 </style>
 </head>
 <body>
-<div id="intro" role="dialog" aria-label="Opening intro">
-  <video id="introVideo" muted playsinline preload="auto" aria-hidden="true"><source src="intro.mp4" type="video/mp4"></video>
-  <div class="shade"></div>
-  <div class="bp" aria-hidden="true">
-    <svg viewBox="0 0 520 300">
-      <path class="ln" style="--l:520" d="M0 250 H520"/>
-      <path class="ln" style="--l:1300" d="M110 250 V120 H270 V250 M270 250 V70 H410 V250 M110 120 L190 62 L270 120"/>
-      <path class="ln" style="--l:900;animation-delay:.4s" d="M140 150 h36 v36 h-36z M206 150 h36 v36 h-36z M300 100 h30 v30 h-30z M352 100 h30 v30 h-30z M300 160 h30 v30 h-30z M352 160 h30 v30 h-30z"/>
-      <rect class="slab" x="90" y="250" width="340" height="20"/>
-      <text class="dim" x="90" y="292">SLAB 6" · 4,000 PSI · #4 REBAR @ 18" O.C.</text>
-    </svg>
-  </div>
-  <div class="copy">
-    <div class="name">Summit<br><em>Concrete Co.</em></div>
-    <div class="sub">Driveways · Patios · Foundations</div>
-  </div>
-  <div class="bar" id="introBar"></div>
-  <button class="skip" id="introSkip" type="button">Skip intro</button>
-</div>
-
 <header class="nav">
   <div class="wrap">
     <a class="logo" href="#home"><span class="logo-mark">sc</span>Summit Concrete Co.</a>
@@ -287,6 +251,7 @@ footer{border-top:1px dashed var(--cork);padding-block:41px 31px;color:var(--sla
     </nav>
     <div class="nav-cta">
       <a class="btn btn-ghost btn-sm" href="#admin">Admin</a>
+      <a class="btn btn-call btn-sm call-link" href="tel:+12565550123"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span class="call-short">Call now</span><span class="call-num">Call <span class="call-text">(256) 555-0123</span></span></a>
       <a class="btn btn-fill btn-sm" href="#quote">Get an estimate</a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="links">Menu</button>
@@ -297,7 +262,7 @@ footer{border-top:1px dashed var(--cork);padding-block:41px 31px;color:var(--sla
 <!-- HOME -->
 <div class="page" id="p-home">
   <section class="hero">
-    <video class="hero-media" autoplay muted loop playsinline preload="metadata" aria-hidden="true"><source src="hero-loop.mp4" type="video/mp4"></video>
+    <video class="hero-media" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="intro.mp4" type="video/mp4"></video>
     <div class="hero-scrim"></div>
     <div class="serial" aria-hidden="true">SC-2008 · Slab 6" · 4,000 psi · #4 rebar @ 18" o.c.</div>
     <div class="wrap hero-top">
@@ -309,7 +274,7 @@ footer{border-top:1px dashed var(--cork);padding-block:41px 31px;color:var(--sla
         <div class="art-k">Driveways · Patios · Walkways · Stamped</div>
         <hr class="dash">
         <p>Honest written quotes, a hardworking crew, and free on-site estimates on every job.</p>
-        <div class="row"><a class="btn btn-fill" href="#quote">Get a free estimate</a><a class="btn btn-ghost" href="#work">See our work</a></div>
+        <div class="row"><a class="btn btn-call call-link" href="tel:+12565550123"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg>Call now</a><a class="btn btn-fill" href="#quote">Get a free estimate</a><a class="btn btn-ghost" href="#work">See our work</a></div>
       </div>
       <div class="thumb-card">
         <div class="art-k">Homeowner rating</div>
@@ -549,11 +514,11 @@ footer{border-top:1px dashed var(--cork);padding-block:41px 31px;color:var(--sla
       <p>Driveways, patios and flatwork, poured right the first time.</p>
       <p id="footContact"></p>
       <p class="credit">Demo by A’Nya</p>
-      <button class="replay" id="introReplay" type="button">Replay intro</button>
     </div>
     <nav aria-label="Footer"><a href="#services">Services</a><a href="#work">Our work</a><a href="#reviews">Reviews</a><a href="#quote">Free estimate</a><a href="#admin">Admin</a></nav>
   </div>
 </footer>
+<div class="call-bar"><a class="btn btn-call call-link" href="tel:+12565550123"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg>Call now</a><a class="btn btn-fill" href="#quote">Free estimate</a></div>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -593,7 +558,7 @@ const WORK=[
 ];
 
 let featured=store.get('featured',null); if(!featured){featured=REVIEWS.map(r=>!!r.f)}
-let settings=Object.assign({phone:'',email:'',area:'Your city & surrounding areas',hours:'Mon–Sat, 7am–6pm',pin:'1234'},store.get('settings',{}));
+let settings=Object.assign({phone:'(256) 555-0123',email:'',area:'Your city & surrounding areas',hours:'Mon–Sat, 7am–6pm',pin:'1234'},store.get('settings',{}));
 let photos=store.get('photos',[]);
 const sampleLeads=[
  {id:'s1',t:'Nov 3, 2026',n:'Example: Marcus L.',ph:'(256) 555-0118',type:'Driveway extension',city:'Northside',size:'18 × 40 ft',notes:'Want to widen for a second car. Two small trees on the side.',st:'New',ex:1},
@@ -653,6 +618,7 @@ function renderGallery(){
 function renderContact(){
   const ph=settings.phone||'Add a phone number in Admin',em=settings.email||'Add an email in Admin';
   $('#contactList').innerHTML=`<div><span>Phone</span><span>${esc(ph)}</span></div><div><span>Email</span><span>${esc(em)}</span></div><div><span>Service area</span><span>${esc(settings.area)}</span></div><div><span>Hours</span><span>${esc(settings.hours)}</span></div>`;
+  const tel=(settings.phone||'').replace(/[^\d+]/g,'');document.querySelectorAll('.call-link').forEach(a=>{a.href='tel:'+(tel.length===10?'+1'+tel:tel||'+12565550123')});document.querySelectorAll('.call-text').forEach(t=>t.textContent=settings.phone||'(256) 555-0123');
   $('#footContact').textContent=[settings.phone,settings.area].filter(Boolean).join(' · ');
 }
 
@@ -726,36 +692,6 @@ $('#ph-file').addEventListener('change',async e=>{
 $('#setForm').addEventListener('submit',e=>{e.preventDefault();settings={phone:$('#s-phone').value.trim(),email:$('#s-email').value.trim(),area:$('#s-area').value.trim(),hours:$('#s-hours').value.trim(),pin:$('#s-pin').value.trim()||'1234'};store.set('settings',settings);renderContact();toast('Business info saved')});
 
 renderServices();renderReviews();renderGallery();renderContact();route();
-})();
-</script>
-<script>
-/* Opening intro: plays intro.mp4 if present, otherwise the built-in blueprint-and-pour animation */
-(function(){
-  const el=document.getElementById('intro'),v=document.getElementById('introVideo'),bar=document.getElementById('introBar');
-  if(!el)return;
-  let timer,done=false,fell=false;
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function lock(on){document.documentElement.style.overflow=on?'hidden':''}
-  function close(){if(done)return;done=true;clearTimeout(timer);try{v.pause()}catch(e){}el.classList.add('out');lock(false);setTimeout(()=>{el.hidden=true},900)}
-  function runBar(ms){bar.style.transition='none';bar.style.width='0';requestAnimationFrame(()=>requestAnimationFrame(()=>{bar.style.transition='width '+ms+'ms linear';bar.style.width='100%'}))}
-  function restartAnims(){el.querySelectorAll('.ln,.slab,.dim,.name,.sub,.bp').forEach(n=>{n.style.animation='none';n.offsetWidth;n.style.animation=''})}
-  function fallback(){if(fell)return;fell=true;clearTimeout(timer);el.classList.remove('has-video');restartAnims();runBar(4600);timer=setTimeout(close,4600)}
-  function play(){
-    if(reduce){el.hidden=true;return}
-    done=false;el.hidden=false;el.classList.remove('out');lock(true);
-    let started=false;fell=false;
-    v.currentTime=0;
-    const p=v.play();
-    if(p&&p.then){p.then(()=>{if(fell){v.pause();return}started=true;el.classList.add('has-video');restartAnims();const ms=Math.min((v.duration||6)*1000,8000);runBar(ms);clearTimeout(timer);timer=setTimeout(close,ms)}).catch(()=>{if(!started)fallback()})}
-    else fallback();
-    timer=setTimeout(()=>{if(!started)fallback()},900);
-  }
-  v.addEventListener('error',()=>{if(!done)fallback()},true);
-  v.addEventListener('ended',close);
-  document.getElementById('introSkip').addEventListener('click',close);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!el.hidden)close()});
-  document.getElementById('introReplay').addEventListener('click',()=>{scrollTo(0,0);play()});
-  if(location.hash==='#admin'){el.hidden=true}else{play()}
 })();
 </script>
 </body>
